@@ -8,6 +8,7 @@ color = (0, 255, 0)
 radius = 3
 pressed = False
 
+
 # click callback
 def click(event, x, y, flags, param):
     global canvas, pressed
