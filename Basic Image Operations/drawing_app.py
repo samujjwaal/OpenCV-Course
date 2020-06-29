@@ -4,7 +4,7 @@ import cv2
 # Global variables
 canvas = np.ones([500, 500, 3], "uint8") * 255
 
-color = (0, 255, 0)
+color = (0, 255, 0)  # green
 radius = 3
 pressed = False
 
@@ -34,14 +34,15 @@ while True:
 
     # key capture every 1ms
     ch = cv2.waitKey(1)
+
     if ch & 0xFF == ord("q"):
-        break
+        break  # quit window
     if ch & 0xFF == ord("b"):
-        color = (255, 0, 0)
+        color = (255, 0, 0)  # blue
     if ch & 0xFF == ord("r"):
-        color = (0, 0, 255)
+        color = (0, 0, 255)  # red
     if ch & 0xFF == ord("g"):
-        color = (0, 255, 0)
+        color = (0, 255, 0)  # green
 
 
 cv2.destroyAllWindows()
