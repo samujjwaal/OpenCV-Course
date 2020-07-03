@@ -1,4 +1,5 @@
 import cv2
+import numpy as np
 
 img = cv2.imread("detect_blob.png", 1)
 # convert to grayscale image
@@ -18,9 +19,26 @@ index = -1  # to get all contours
 thickness = 4
 color = (255, 0, 255)  # pink color
 
-# draw contours on image to display
-cv2.drawContours(img2, contours, index, color, thickness)
-cv2.imshow("Contours", img2)
+# initialize empty numpy array for blank image
+objects = np.zeros([img.shape[0], img.shape[1], 3], "uint8")
+
+for c in contours:
+    # draw contour on blank image
+    cv2.drawContours(objects, [c], -1, color, -1)
+
+    # calculate area and perimeter of contour
+    area = cv2.contourArea(c)
+    perimeter = cv2.arcLength(c, True)
+
+    # calculate moments of image to calculate centroid
+    M = cv2.moments(c)
+    cx = int(M["m10"] / M["m00"])
+    cy = int(M["m01"] / M["m00"])
+    cv2.circle(objects, (cx, cy), 4, (0, 0, 255), -1)
+
+    print(f"Area:{area} Perimeter:{perimeter}")
+
+cv2.imshow("Contours", objects)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
